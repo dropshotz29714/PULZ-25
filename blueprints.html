@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AURA | Blueprints</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Tailwind Configuration and Custom CSS -->
     <script>
         tailwind.config = {
             theme: {
@@ -38,7 +36,6 @@
             }
         }
     </script>
-    <!-- Using a custom font for the body -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
@@ -46,7 +43,6 @@
             background-color: #ffffff;
             color: #1f2937;
         }
-        /* Fade-in on scroll */
         .fade-scroll {
             opacity: 0;
             transform: translateY(20px);
@@ -56,7 +52,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-                /* --- Footer styles (professional dark footer) --- */
                 .site-footer { background: linear-gradient(180deg,#0b0f14, #0f1720); color: #cbd5e1; }
         .footer-top { padding: 3.5rem 1rem; }
         .footer-brand { color: #fff; font-weight: 800; letter-spacing: -0.02em; }
@@ -89,16 +84,12 @@
             </a>
         </div>
     </nav>
-
-    <!-- Blueprints Hero Section -->
     <main class="py-20 bg-bg-main">
         <div class="max-w-7xl mx-auto px-6 text-center fade-scroll">
             <h1 class="text-5xl font-extrabold text-text-dark mb-4">AURA Project Blueprints</h1>
             <p class="text-xl text-text-muted max-w-3xl mx-auto mb-16">See how global innovators deploy AURA to reshape their operational architecture and achieve market dominance.</p>
             
-            <!-- Blueprint Cards Grid -->
             <div class="grid md:grid-cols-3 gap-8">
-                <!-- Blueprint 1 -->
                 <div class="bg-bg-card p-6 rounded-2xl shadow-xl border border-gray-100 transform hover:shadow-2xl hover:scale-[1.02] transition duration-300 fade-scroll">
                     <div class="w-full h-40 bg-gray-900 rounded-lg mb-4 flex items-center justify-center relative overflow-hidden">
                         <svg class="w-20 h-20 text-aura-primary opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9h-3a8.98 8.98 0 00-6 2.5m-2 4h3a8.98 8.98 0 006 2.5m-2 4a9 9 0 01-9-9"></path></svg>
@@ -109,7 +100,6 @@
                     <a href="#" class="text-aura-primary font-medium text-sm hover:underline">View Case Study &rarr;</a>
                 </div>
 
-                <!-- Blueprint 2 -->
                 <div class="bg-bg-card p-6 rounded-2xl shadow-xl border border-gray-100 transform hover:shadow-2xl hover:scale-[1.02] transition duration-300 fade-scroll">
                     <div class="w-full h-40 bg-gray-900 rounded-lg mb-4 flex items-center justify-center relative overflow-hidden">
                         <svg class="w-20 h-20 text-[#46cd71] opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14M12 5l7 7-7 7"></path></svg>
@@ -120,7 +110,6 @@
                     <a href="#" class="text-aura-primary font-medium text-sm hover:underline">View Case Study &rarr;</a>
                 </div>
 
-                <!-- Blueprint 3 -->
                 <div class="bg-bg-card p-6 rounded-2xl shadow-xl border border-gray-100 transform hover:shadow-2xl hover:scale-[1.02] transition duration-300 fade-scroll">
                     <div class="w-full h-40 bg-gray-900 rounded-lg mb-4 flex items-center justify-center relative overflow-hidden">
                         <svg class="w-20 h-20 text-red-400 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
@@ -141,14 +130,9 @@
         </div>
     </main>
 
-    <!-- Professional Footer -->
-<!-- ==========================
-         NEW PROFESSIONAL FOOTER
-         ========================== -->
          <footer class="site-footer mt-24">
             <div class="footer-top max-w-7xl mx-auto px-6">
               <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-                <!-- Brand / Description -->
                 <div class="md:col-span-4">
                   <a href="index.html" class="inline-block footer-brand text-2xl mb-3">AURA<span class="text-aura-primary">.</span></a>
                   <p class="footer-small max-w-sm mb-4">
@@ -156,7 +140,6 @@
                   </p>
       
                   <div class="flex items-center space-x-3 mt-3">
-                    <!-- Social icons -->
                     <a class="social-btn" href="#" aria-label="Twitter">
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6.5c-.6.3-1.2.5-1.9.6.7-.4 1.2-1 1.4-1.7-.7.5-1.5.8-2.3 1-1.3-1.4-3.6-1.2-4.9.4-1.1 1.4-.8 3.2.5 4.1-.6 0-1.2-.2-1.6-.5 0 1.6 1.1 3 2.6 3.3-.5.1-1 .2-1.6.1.5 1.6 2 2.6 3.7 2.6-1.4 1-3.1 1.5-4.8 1.3 1.5 1 3.3 1.5 5.2 1.5 6.3 0 9.8-5.5 9.8-10.3v-.47c.7-.5 1.3-1.2 1.8-1.9-.6.3-1.3.5-2 .6z" fill="currentColor"/></svg>
                     </a>
@@ -169,7 +152,6 @@
                   </div>
                 </div>
       
-                <!-- Product links -->
                 <div class="md:col-span-2">
                   <h4 class="text-white font-semibold mb-3">Product</h4>
                   <ul class="space-y-2">
@@ -180,7 +162,6 @@
                   </ul>
                 </div>
       
-                <!-- Resources -->
                 <div class="md:col-span-2">
                   <h4 class="text-white font-semibold mb-3">Resources</h4>
                   <ul class="space-y-2">
@@ -191,7 +172,6 @@
                   </ul>
                 </div>
       
-                <!-- Newsletter / Contact -->
                 <div class="md:col-span-4">
                   <h4 class="text-white font-semibold mb-3">Stay in the loop</h4>
                   <p class="footer-small mb-3 max-w-md">Get product updates, release notes and exclusive access to beta features — delivered monthly.</p>
@@ -206,7 +186,6 @@
               </div>
             </div>
       
-            <!-- Legal / small print -->
             <div class="legal-row">
               <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
                 <div class="flex items-center gap-4">
@@ -219,7 +198,6 @@
       
                 <div class="flex items-center gap-3">
                   <span class="footer-small mr-2 hidden sm:inline">We accept</span>
-                  <!-- payment badges (placeholder) -->
                   <div class="flex items-center gap-2">
                     <div class="h-6 w-10 rounded-sm bg-white/8 flex items-center justify-center text-xs text-white/80">VISA</div>
                     <div class="h-6 w-10 rounded-sm bg-white/8 flex items-center justify-center text-xs text-white/80">MC</div>
@@ -230,7 +208,6 @@
             </div>
           </footer>
 
-    <!-- Scroll Animation Script -->
     <script>
         const faders = document.querySelectorAll('.fade-scroll');
         const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
