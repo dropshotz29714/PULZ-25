@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA | Ethereal Performance</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Configuration and Custom CSS -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'aura-primary': '#8b5cf6', // Strong Purple Accent
+                        'bg-main': '#ffffff', // Clean White White Background
+                        'bg-card': '#f9fafb', // Light Gray Card Background
+                        'text-dark': '#1f2937', // Primary Dark Text
+                        'text-muted': '#6b7280', // Mid Gray Muted Text
+                        'feature-dark': '#1a202c', // Dark BG for features (new section)
+                        'feature-text': '#e5e7eb', // Light text for dark features (new section)
+                        'feature-muted': '#9ca3af', // Muted text for dark features (new section)
+                        'cta-dark-bg': '#0c1015', // Extremely dark background for the final CTA
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                },
+            }
+        }
+    </script>
+    <style>
+        /* Base styles for Body */
+        body {
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        /* Glass Effect for Light Navbar */
+        .glass-light {
+            background: rgba(255, 255, 255, 0.9); /* White with transparency */
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Main Text Gradient Effect */
+        .text-gradient {
+            background: linear-gradient(135deg, #8b5cf6, #c4b5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Hero Background Gradient (Light, Subtle) */
+        .hero-bg {
+             background-color: #ffffff;
+             background-image: 
+                radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(196, 181, 253, 0.1) 0px, transparent 50%);
+        }
+        
+        /* Core Feature Box Styles (5 column section) */
+        .feature-box {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+            border-radius: 1.5rem; /* rounded-3xl */
+        }
+        .feature-box:hover {
+            border-color: #8b5cf6;
+            box-shadow: 0 10px 20px -5px rgba(139, 92, 246, 0.15);
+            transform: translateY(-4px); /* Subtle lift on hover */
+        }
+
+        /* Mockup card styling to mimic the screenshot's dark UI */
+        .mockup-card {
+            background-color: #1f2937; /* Dark charcoal */
+            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.3);
+            backdrop-filter: blur(8px);
+        }
+        
+        /* New Section Feature Card Styling (Dark on light BG) */
+        .new-feature-card {
+            background-color: var(--tw-colors-feature-dark);
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            height: 100%; /* Ensure uniform height in grid */
+        }
+        .new-feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border-color: #8b5cf6;
+        }
+
+        /* Image Placeholder for Dark Features */
+        .mockup-placeholder {
+            background-color: #2d3748; /* Darker interior for the mockup frame */
+            border-radius: 0.5rem;
+            height: 100px; /* Consistent height for the image area */
+            position: relative;
+        }
+
+        /* Abstract Line Graphics for New Section */
+        .dark-section-bg {
+            background-color: #10141a; /* Very dark background for the features area */
+            position: relative;
+            overflow: hidden;
+        }
+        .dark-section-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 10% 10%, rgba(139, 92, 246, 0.05) 1px, transparent 0),
+                              radial-gradient(circle at 90% 90%, rgba(46, 204, 113, 0.05) 1px, transparent 0);
+            background-size: 50px 50px;
+            opacity: 0.5;
+        }
+        
+        /* Final CTA Card Styling */
+        .final-cta-card {
+            background: #10141a; /* Dark background matching the features section */
+            /* Add glow/shadow effect to match the image */
+            box-shadow: 
+                0 0 40px rgba(46, 204, 113, 0.4), /* Teal/blue glow */
+                0 0 10px rgba(46, 204, 113, 0.2) inset;
+            /* Using a border to mimic the stylized edge */
+            border: 2px solid rgba(46, 204, 113, 0.6); 
+            transition: all 0.3s ease;
+        }
+        .final-cta-card:hover {
+            box-shadow: 
+                0 0 60px rgba(46, 204, 113, 0.6),
+                0 0 15px rgba(46, 204, 113, 0.3) inset;
+            transform: scale(1.01);
+        }
+
+        /* Get Started Button Styling */
+        .cta-button-dark {
+            background-color: #1f2937; /* Dark charcoal */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+        .cta-button-dark:hover {
+            background-color: #2d3748;
+            box-shadow: 0 4px 20px rgba(46, 204, 113, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-bg-main text-text-dark antialiased selection:bg-aura-primary selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass-light transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="index.html" class="text-3xl font-black tracking-tighter text-aura-primary">AURA.</a>
+            <div class="hidden md:flex space-x-8 font-medium text-sm text-text-muted">
+                <a href="architecture.html" class="hover:text-aura-primary transition">Architecture</a>
+                <a href="pricing.html" class="text-text-dark hover:text-aura-primary transition duration-300 font-medium">Pricing</a>
+                <a href="blueprints.html" class="hover:text-aura-primary transition">Blueprints</a>
+            </div>
+            
+            <a href="access.html" class="bg-aura-primary text-white px-6 py-2.5 rounded-full font-semibold shadow-lg shadow-purple-500/50 hover:shadow-xl hover:scale-105 transition-all duration-300">
+                Get Access
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="min-h-screen flex items-center justify-center pt-20 overflow-hidden relative hero-bg">
+        <!-- Floating Abstract Shapes -->
+        <div class="absolute top-1/4 left-10 w-72 h-72 bg-aura-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float"></div>
+        <div class="absolute bottom-1/4 right-10 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-float" style="animation-delay: 2s;"></div>
+        
+        <!-- Subtle Glow at Center -->
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-[50vw] h-[50vw] bg-aura-primary/5 rounded-full animate-pulse-slow"></div>
+        </div>
+
+        <div class="text-center relative z-10 max-w-5xl px-6">
+            <div class="inline-block mb-4 px-4 py-1.5 rounded-full bg-aura-primary/10 border border-aura-primary/30 text-aura-primary text-xs font-bold tracking-widest uppercase shadow-sm animate-slide-up">
+                v4.0 Stable Release
+            </div>
+            <h1 class="text-6xl md:text-9xl font-black tracking-tighter mb-6 leading-tight animate-slide-up" style="animation-delay: 0.1s;">
+                <span class="text-gradient">Pure.</span> <span class="text-text-dark">Precise.</span><br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-aura-primary to-purple-600">Perfection.</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-text-muted max-w-2xl mx-auto mb-10 font-light animate-slide-up" style="animation-delay: 0.2s;">
+                The minimal architecture for maximum advantage in Minecraft. AURA redefines the boundaries of software assistance with an undetectable, ethereal footprint.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 animate-slide-up" style="animation-delay: 0.3s;">
+                <a href="access.html" class="px-10 py-4 bg-aura-primary text-white text-lg font-bold rounded-2xl shadow-xl shadow-purple-500/50 hover:bg-purple-700 transition-all transform hover:-translate-y-1">
+                    Initialize AURA
+                </a>
+                <a href="architecture.html" class="px-10 py-4 bg-white text-text-dark text-lg font-bold rounded-2xl border border-gray-200 hover:border-aura-primary transition-all transform hover:-translate-y-1">
+                    View Specs
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Trusted Strip -->
+    <div class="py-8 bg-bg-card border-y border-gray-200">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center opacity-40 grayscale text-text-muted">
+            <span class="text-xl font-bold">SENTINEL</span>
+            <span class="text-xl font-bold">VANGUARD</span>
+            <span class="text-xl font-bold">EASYANTI</span>
+            <span class="text-xl font-bold">BATTLEYE</span>
+        </div>
+    </div>
+    
+    <!-- Core Capabilities Section (5 columns) -->
+    <section class="py-20 md:py-32 bg-bg-main">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-black text-center mb-4 text-text-dark">Core Capabilities</h2>
+            <p class="text-xl text-center text-text-muted max-w-3xl mx-auto mb-16">
+                A non-compromising suite engineered for stability and competitive integrity in Minecraft, built from the ground up to surpass industry standards.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+                
+                <!-- Feature 1: Precision Architecture (Combat) -->
+                <div class="feature-box p-8 text-center">
+                    <svg class="w-12 h-12 text-aura-primary mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.007 12.007 0 002.944 12 12.007 12.007 0 005.38 18.056 12.007 12.007 0 0012 21.056a12.007 12.007 0 006.62-2.944A12.007 12.007 0 0021.056 12a12.007 12.007 0 00-2.438-7.016z"></path></svg>
+                    <h3 class="text-xl font-bold mb-2">Precision Architecture</h3>
+                    <p class="text-sm text-text-muted">Dependable, anti-cheat resistant modules with zero-day detection immunity.</p>
+                </div>
+
+                <!-- Feature 2: The AURA Interface (Mod Menu) -->
+                <div class="feature-box p-8 text-center">
+                    <svg class="w-12 h-12 text-aura-primary mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    <h3 class="text-xl font-bold mb-2">The AURA Interface</h3>
+                    <p class="text-sm text-text-muted">A minimalist, customizable HUD and legit mod menu for total in-game control.</p>
+                </div>
+
+                <!-- Feature 3: Dynamic Versioning (Compatibility) -->
+                <div class="feature-box p-8 text-center">
+                    <svg class="w-12 h-12 text-aura-primary mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                    <h3 class="text-xl font-bold mb-2">Dynamic Versioning</h3>
+                    <p class="text-sm text-text-muted">Seamless compatibility across all majorMinecraft versions (1.8.x, 1.12.x, etc.)</p>
+                </div>
+
+                <!-- Feature 4: Native NIL Deployment (Injection) -->
+                <div class="feature-box p-8 text-center">
+                    <svg class="w-12 h-12 text-aura-primary mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <h3 class="text-xl font-bold mb-2">Native NIL Deployment</h3>
+                    <p class="text-sm text-text-muted">Inject directly into any client or mod-pack with zero configuration required.</p>
+                </div>
+
+                 <!-- Feature 5: HWID Cloaking 2.0 (Highlight) -->
+                <div class="feature-box p-8 text-center border-2 border-aura-primary transform scale-105 hover:scale-100 transition-all duration-500">
+                    <svg class="w-12 h-12 text-aura-primary mx-auto mb-4 animate-pulse-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.974 2.887a1 1 0 00-.363 1.118l1.519 4.674c.3.921-.755 1.688-1.54 1.118l-3.974-2.887a1 1 0 00-1.176 0l-3.974 2.887c-.784.57-1.838-.197-1.54-1.118l1.519-4.674a1 1 0 00-.363-1.118L2.744 10.1c-.783-.57-.381-1.81.588-1.81h4.915a1 1 0 00.95-.69l1.519-4.674z"></path></svg>
+                    <h3 class="text-xl font-bold mb-2 text-aura-primary">HWID Cloaking 2.0</h3>
+                    <p class="text-sm text-text-muted font-semibold">An <bold>Exclusive Feature</bold> utilizing dynamic key rotation to prevent shadow-banning based on hardware IDs.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+    <!-- TAKE A CLOSER LOOK SECTION (Features) -->
+    <section class="py-20 md:py-32 dark-section-bg">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <p class="text-sm font-semibold text-aura-primary uppercase tracking-widest text-center mb-2">VAPE</p>
+            <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-4 text-feature-text">
+                Take a closer look.
+            </h2>
+            <p class="text-xl text-center text-feature-muted max-w-3xl mx-auto mb-20">
+                A few more things we have to offer
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Card 1: Legit mod menu -->
+                <div class="new-feature-card">
+                    <div class="p-8">
+                        <!-- Mockup placeholder mimicking the screenshot -->
+                        <div class="mockup-placeholder mb-4 flex items-center justify-center bg-gray-800 border border-aura-primary/50">
+                            <svg class="w-10 h-10 text-aura-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
+                            <span class="absolute top-1/2 right-4 transform -translate-y-1/2 w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-feature-text mb-2">Legit mod menu</h3>
+                        <p class="text-sm text-feature-muted mb-4">
+                            Contains all your favorite core HUD mods and general client enhancements for Minecraft. Includes banned mods like Freelook and NoClickDelay.
+                        </p>
+                        <a href="#" class="text-sm font-semibold text-aura-primary hover:text-purple-400 transition">Learn more &rsaquo;</a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Friends -->
+                <div class="new-feature-card">
+                    <div class="p-8">
+                        <!-- Mockup placeholder mimicking the screenshot -->
+                         <div class="mockup-placeholder mb-4 flex items-center justify-center bg-gray-800 border border-aura-primary/50">
+                            <svg class="w-10 h-10 text-aura-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5m-5 0a2 2 0 100-4m0 4a2 2 0 110-4m-9-6a4 4 0 11-8 0 4 4 0 018 0zM17 10v4m-4-4h.01M12 4v7h-5V4m7 7l4 4"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-feature-text mb-2">Friends</h3>
+                        <p class="text-sm text-feature-muted mb-4">
+                            Connect and collab with your friends using Vape online.
+                        </p>
+                        <a href="#" class="text-sm font-semibold text-aura-primary hover:text-purple-400 transition">Learn more &rsaquo;</a>
+                    </div>
+                </div>
+
+                <!-- Card 3: Injectable client -->
+                <div class="new-feature-card">
+                    <div class="p-8">
+                        <!-- Mockup placeholder mimicking the screenshot -->
+                         <div class="mockup-placeholder mb-4 flex items-center justify-center bg-gray-800 border border-aura-primary/50">
+                            <svg class="w-10 h-10 text-aura-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-feature-text mb-2">Injectable client</h3>
+                        <p class="text-sm text-feature-muted mb-4">
+                            Run Vape alongside any mods and different launchers without any extra configuration from you.
+                        </p>
+                        <a href="#" class="text-sm font-semibold text-aura-primary hover:text-purple-400 transition">Learn more &rsaquo;</a>
+                    </div>
+                </div>
+
+                <!-- Card 4: Multi version support -->
+                <div class="new-feature-card">
+                    <div class="p-8">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <svg class="w-8 h-8 text-aura-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                            <h3 class="text-2xl font-bold text-feature-text">Multi version support</h3>
+                        </div>
+                        <p class="text-sm text-feature-muted mb-4">
+                            Includes the same experience you can expect from Vape, across popular Minecraft versions.
+                        </p>
+                        <a href="#" class="text-sm font-semibold text-aura-primary hover:text-purple-400 transition">Learn more &rsaquo;</a>
+                    </div>
+                </div>
+
+                <!-- Card 5: Active support -->
+                <div class="new-feature-card">
+                    <div class="p-8">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <svg class="w-8 h-8 text-aura-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.693C5.025 14.167 6 12 6 12s2-1.75 2-4.5S10 3 10 3h4c0 0 2 2.75 2 5.5s-2 4.5-2 4.5z"></path></svg>
+                            <h3 class="text-2xl font-bold text-feature-text">Active support</h3>
+                        </div>
+                        <p class="text-sm text-feature-muted mb-4">
+                            What ever the issue may be, we're here to help you solve the issue.
+                        </p>
+                        <a href="#" class="text-sm font-semibold text-aura-primary hover:text-purple-400 transition">Learn more &rsaquo;</a>
+                    </div>
+                </div>
+                
+                <!-- Card 6: Trusted provider -->
+                <div class="new-feature-card">
+                    <div class="p-8">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <svg class="w-8 h-8 text-aura-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.007 12.007 0 002.944 12 12.007 12.007 0 005.38 18.056 12.007 12.007 0 0012 21.056a12.007 12.007 0 006.62-2.944A12.007 12.007 0 0021.056 12a12.007 12.007 0 00-2.438-7.016z"></path></svg>
+                            <h3 class="text-2xl font-bold text-feature-text">Trusted provider</h3>
+                        </div>
+                        <p class="text-sm text-feature-muted mb-4">
+                            We've been your leading and most trusted ghost client provider since 2015.
+                        </p>
+                        <a href="#" class="text-sm font-semibold text-aura-primary hover:text-purple-400 transition">Learn more &rsaquo;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXCLUSIVE FEATURE SHOWCASE SECTION (Existing Section) -->
+    <section class="py-20 md:py-32 bg-bg-card">
+        <div class="max-w-7xl mx-auto px-6">
+            <p class="text-sm font-semibold text-aura-primary uppercase tracking-widest text-center mb-2">AURA V4</p>
+            <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-4 text-text-dark">
+                Exclusive Features
+            </h2>
+            <p class="text-xl text-center text-text-muted max-w-3xl mx-auto mb-20">
+                Unique to the Aura experience. Designed to enhance both competitive and community aspects in Minecraft.
+            </p>
+
+            <!-- Feature Block 1: Public Profiles -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24 items-center">
+                <!-- Text Content -->
+                <div class="animate-slide-up">
+                    <h3 class="text-3xl font-bold text-text-dark mb-4">Public Profiles</h3>
+                    <p class="text-lg text-text-muted mb-6">
+                        Browse trusted, community-made profiles to instantly match your optimal playstyle across different game modes.
+                    </p>
+                    <ul class="space-y-3 text-text-dark">
+                        <li class="flex items-start space-x-2"><span class="text-aura-primary mt-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </span><span>Find the best profiles based on comprehensive community reviews and ratings.</span></li>
+                        <li class="flex items-start space-x-2"><span class="text-aura-primary mt-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </span><span>Upload and share your own optimized profiles with the entire Aura community.</span></li>
+                        <li class="flex items-start space-x-2"><span class="text-aura-primary mt-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </span><span>Privately share specific profile setups with only your trusted friends.</span></li>
+                    </ul>
+                    <a href="access.html" class="mt-8 inline-flex items-center font-semibold text-white bg-aura-primary px-6 py-3 rounded-xl hover:bg-purple-700 transition transform hover:-translate-y-0.5">
+                        Learn more &rsaquo;
+                    </a>
+                </div>
+
+                <!-- Mockup/Visual -->
+                <div class="p-6 mockup-card rounded-2xl shadow-2xl animate-slide-up" style="animation-delay: 0.2s;">
+                    <div class="text-sm text-gray-400 mb-4 flex justify-between items-center">
+                        <span class="font-medium">Public Profiles</span>
+                        <div class="flex space-x-2">
+                             <span class="text-xs font-bold text-teal-400 bg-teal-900 px-3 py-1 rounded-full">TOP RATED</span>
+                             <span class="text-xs font-bold text-gray-400 bg-gray-700 px-3 py-1 rounded-full">TRENDING</span>
+                        </div>
+                    </div>
+                    <!-- Profile Card Mockup -->
+                    <div class="bg-teal-700/80 p-4 rounded-xl mb-4 transition duration-300 hover:bg-teal-700 cursor-pointer">
+                        <div class="flex justify-between items-start">
+                            <div class="space-y-0.5">
+                                <div class="text-white font-bold text-lg">Minemen Club Ghost</div>
+                                <div class="text-teal-200 text-sm">Haterman</div>
+                            </div>
+                            <div class="w-4 h-4 bg-lime-400 rounded-full border-2 border-teal-700"></div>
+                        </div>
+                        <div class="text-white font-bold text-xl mt-3">1.6K Likes</div>
+                    </div>
+                    <!-- Placeholder Search/Create -->
+                    <div class="bg-gray-700/50 p-4 rounded-xl text-center text-gray-400 font-medium">
+                        <span class="text-aura-primary font-bold">CREATE NEW</span> or Search Profiles...
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Feature Block 2: Inventory Manager (Reversed Layout) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Mockup/Visual -->
+                <div class="p-6 mockup-card rounded-2xl shadow-2xl animate-slide-up order-last lg:order-first" style="animation-delay: 0.2s;">
+                    <div class="text-sm text-gray-400 mb-4">Bedwars Inventory</div>
+                    <!-- Inventory Mockup -->
+                    <div class="p-4 bg-gray-800 rounded-xl">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-gray-400">HOTBAR</span>
+                            <span class="text-white font-bold">96 ITEMS</span>
+                        </div>
+                        <!-- Slider Placeholder -->
+                        <div class="h-2 bg-aura-primary rounded-full mb-6 relative">
+                            <div class="absolute -right-1 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-white rounded-full border-2 border-aura-primary shadow"></div>
+                        </div>
+
+                        <div class="text-sm text-gray-400 mb-2">INVENTORY PRESETS</div>
+                        <button class="w-full py-3 bg-aura-primary text-white font-bold rounded-xl flex items-center justify-center space-x-2 transition hover:bg-purple-600">
+                             + ADD NEW PRESET
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Text Content -->
+                <div class="animate-slide-up">
+                    <h3 class="text-3xl font-bold text-text-dark mb-4">Inventory Manager</h3>
+                    <p class="text-lg text-text-muted mb-6">
+                        Eliminate clutter and instantly set up your preferred loadouts for speed and efficiency in competitive Minecraft scenarios.
+                    </p>
+                    <ul class="space-y-3 text-text-dark">
+                        <li class="flex items-start space-x-2"><span class="text-aura-primary mt-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </span><span>Pick your desired Hotbar item layout and save multiple configurations.</span></li>
+                        <li class="flex items-start space-x-2"><span class="text-aura-primary mt-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </span><span>Use enhanced selection logic to specify exact item types, enchantments, and quantities.</span></li>
+                        <li class="flex items-start space-x-2"><span class="text-aura-primary mt-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </span><span>Automatic cleanup: drop unneeded items on the fly with Inventory Filters.</span></li>
+                    </ul>
+                    <a href="blueprints.html" class="mt-8 inline-flex items-center font-semibold text-white bg-aura-primary px-6 py-3 rounded-xl hover:bg-purple-700 transition transform hover:-translate-y-0.5">
+                        Learn more &rsaquo;
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="about" class="py-20 md:py-32 dark-section-bg">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="order-2 md:order-1">
+                <h2 style="color:aliceblue;" class="text-4xl font-bold mb-6">Our Vision for Ethereal Computing</h2>
+                <p class="text-lg text-text-muted mb-6">
+                    AURA was founded on the principle that digital infrastructure should be invisible, instantaneous, and infinitely scalable. We don't just host applications; we create ecosystems where performance is a given, not a goal.
+                </p>
+                <ul class="space-y-4 text-text-dark">
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-aura-primary mr-3 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.14-2.052-.42-3.016z" /></svg>
+                        <p class="text-sm text-feature-muted mb-4"><span class="font-semibold" style="color:aliceblue;">Sustainability:</span> Our infrastructure runs on 100% renewable energy credits.</p>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-aura-primary mr-3 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                        <p class="text-sm text-feature-muted mb-4"><span class="font-semibold" style="color:aliceblue;">Resilience:</span> Guaranteed 99.999% uptime for Pro and Enterprise clients.</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="order-1 md:order-2 flex justify-center items-center h-full">
+                <!-- A blocky, abstract SVG icon/mascot that floats -->
+                <div class="p-8 bg-gray-200 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300 w-full max-w-sm flex justify-center items-center h-64">
+                    <svg class="w-32 h-32 animate-float" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Head base (The block) -->
+                        <rect x="30" y="30" width="40" height="40" fill="#20f4f4" rx="5" ry="5"/>
+
+                        <!-- Light Source/Eye Glare (Simulating the light aura) -->
+                        <path d="M50 0 L55 10 L45 10 Z" fill="#20f4f4" style="filter: drop-shadow(0 0 10px #20f4f4);"/>
+                        <path d="M35 15 L45 5 L55 15 L45 25 Z" fill="#46cd71" style="filter: drop-shadow(0 0 5px #46cd71);"/>
+
+                        <!-- Small Block Arms (Simulating movement) -->
+                        <rect x="20" y="40" width="10" height="20" fill="#a0a0a0" rx="2" ry="2"/>
+                        <rect x="70" y="40" width="10" height="20" fill="#a0a0a0" rx="2" ry="2"/>
+                        
+                        <!-- Top Antenna/Spike (Cyan - Ethereal element) -->
+                        <path d="M45 20 L55 20 L50 10 Z" fill="#20f4f4" style="filter: drop-shadow(0 0 5px #20f4f4);"/>
+
+                        <!-- Crown/Top Structure (Updated) -->
+                        <!-- Primary Block (Cyan) -->
+                        <path d="M35 10 L65 10 L50 25 Z" fill="#20f4f4" style="filter: drop-shadow(0 0 5px #20f4f4);"/>
+                        <path d="M35 10 L30 20 L50 15 Z" fill="#20f4f4" style="filter: drop-shadow(0 0 5px #20f4f4);"/>
+                        <path d="M65 10 L70 20 L50 15 Z" fill="#20f4f4" style="filter: drop-shadow(0 0 5px #20f4f4);"/>
+
+                        <!-- Secondary Blocks (Green) -->
+                        <path d="M40 20 L50 15 L60 20 L50 25 Z" fill="#46cd71" style="filter: drop-shadow(0 0 5px #46cd71);"/>
+                        <rect x="48" y="10" width="4" height="4" fill="#FFC700" style="filter: drop-shadow(0 0 2px #FFC700);"/>
+                        
+                        <!-- Reverting to a simple design based on the original request's image theme -->
+                        <!-- Old code from previous turn: -->
+                        <!-- 
+                        <path d="M35 20 L45 10 L25 20 Z" fill="#46cd71" style="filter: drop-shadow(0 0 5px #46cd71);"/>
+                        <path d="M65 20 L55 10 L75 20 Z" fill="#46cd71" style="filter: drop-shadow(0 0 5px #46cd71);"/>
+                        <rect x="48" y="18" width="4" height="4" fill="#a0a0a0"/>
+                        <path d="M38 10 L62 10 L50 25 Z" fill="#20f4f4" style="filter: drop-shadow(0 0 5px #20f4f4);"/>
+                        <path d="M48 20 L52 20 L50 25 Z" fill="#46cd71" style="filter: drop-shadow(0 0 5px #46cd71);"/>
+                        -->
+                        
+                        <!-- Simplified Blocky Character with Aura -->
+                        
+                        <!-- Body (Blocky structure) -->
+                        <rect x="40" y="35" width="20" height="40" fill="#1f2937" rx="5"/>
+                        
+                        <!-- Head (Simpler block) -->
+                        <rect x="45" y="25" width="10" height="10" fill="#a0a0a0" rx="2"/>
+
+                        <!-- Aura/Light Source (Blue/Cyan glow) -->
+                        <circle cx="50" cy="55" r="30" fill="#8b5cf6" opacity="0.1"/>
+                        <circle cx="50" cy="55" r="20" fill="#8b5cf6" opacity="0.15"/>
+                        
+                        <!-- Top Accent (Cyan) -->
+                        <path d="M45 25 L55 25 L50 15 Z" fill="#20f4f4" style="filter: drop-shadow(0 0 5px #20f4f4);"/>
+                        
+                        <!-- Arms -->
+                        <rect x="30" y="45" width="10" height="5" fill="#1f2937" rx="1"/>
+                        <rect x="60" y="45" width="10" height="5" fill="#1f2937" rx="1"/>
+
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-gray-200 bg-bg-main">
+        <div class="max-w-7xl mx-auto px-6 text-center text-sm text-text-muted">
+            <p class="mb-4">© 2024 AURA Industries, LLC. All Rights Reserved. Engineered for Performance.</p>
+            <div class="space-x-4">
+                <a href="#" class="hover:text-aura-primary">Terms of Service</a>
+                <span class="text-gray-400">|</span>
+                <a href="#" class="hover:text-aura-primary">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

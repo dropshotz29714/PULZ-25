@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA | Technical Architecture</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Configuration and Custom CSS -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'aura-primary': '#8b5cf6', // Strong Purple Accent
+                        'bg-main': '#ffffff', // Clean White Background
+                        'bg-card': '#f9fafb', // Light Gray Card Background
+                        'text-dark': '#1f2937', // Primary Dark Text
+                        'text-muted': '#6b7280', // Mid Gray Muted Text
+                        'feature-dark': '#1a202c', // Dark BG for features (new section)
+                        'feature-text': '#e5e7eb', // Light text for dark features (new section)
+                        'feature-muted': '#9ca3af', // Muted text for dark features (new section)
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                },
+            }
+        }
+    </script>
+    <style>
+        /* Base styles for Body */
+        body {
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        /* Glass Effect for Light Navbar */
+        .glass-light {
+            background: rgba(255, 255, 255, 0.9); /* White with transparency */
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Main Text Gradient Effect */
+        .text-gradient {
+            background: linear-gradient(135deg, #8b5cf6, #c4b5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Architecture Block Styles */
+        .arch-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .arch-card:hover {
+            border-color: #8b5cf6;
+            box-shadow: 0 10px 20px -5px rgba(139, 92, 246, 0.15);
+        }
+        
+        /* Specialized Dark Section for the core diagram */
+        .diagram-section {
+            background-color: #10141a; /* Very dark background */
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        .diagram-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 50% 10%, rgba(139, 92, 246, 0.1) 1px, transparent 0);
+            background-size: 80px 80px;
+            opacity: 0.5;
+        }
+
+        /* Callout Box for Security */
+        .security-callout {
+            background-color: #f3f4f6;
+            border-left: 5px solid #8b5cf6;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body class="bg-bg-main text-text-dark antialiased selection:bg-aura-primary selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass-light transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="index.html" class="text-3xl font-black tracking-tighter text-aura-primary">AURA.</a>
+            <div class="hidden md:flex space-x-8 font-medium text-sm text-text-muted">
+                <a href="architecture.html" class="text-aura-primary transition">Architecture</a>
+                <a href="pricing.html" class="text-text-dark hover:text-aura-primary transition duration-300 font-medium">Pricing</a>
+                <a href="blueprints.html" class="hover:text-aura-primary transition">Blueprints</a>
+            </div>
+            
+            <a href="access.html" class="bg-aura-primary text-white px-6 py-2.5 rounded-full font-semibold shadow-lg shadow-purple-500/50 hover:shadow-xl hover:scale-105 transition-all duration-300">
+                Get Access
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Header (Architecture Focus) -->
+    <header class="pt-32 pb-20 bg-bg-card">
+        <div class="text-center max-w-4xl mx-auto px-6">
+            <p class="text-sm font-semibold text-aura-primary uppercase tracking-widest mb-4">ENGINEERING SPECIFICS</p>
+            <h1 class="text-6xl md:text-7xl font-black tracking-tighter mb-4 leading-tight">
+                The <span class="text-transparent bg-clip-text bg-gradient-to-r from-aura-primary to-purple-600">AURA</span> Architecture
+            </h1>
+            <p class="text-xl text-text-muted max-w-2xl mx-auto font-light">
+                An in-depth look at the multi-layered design that guarantees performance, stability, and zero detection risk across all supported environments.
+            </p>
+        </div>
+    </header>
+
+    <!-- Core Architecture Diagram Section -->
+    <section class="py-20 md:py-32 diagram-section">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <h2 class="text-4xl md:text-5xl font-black text-center mb-6 text-feature-text">The Three Pillars of Resilience</h2>
+            <p class="text-lg text-center text-feature-muted max-w-3xl mx-auto mb-16">
+                AURA operates on a triple-layer framework, ensuring that each module is isolated and hardened against external inspection. [Image of 3 layer software architecture diagram]
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Pillar 1: Kernel-Level Hooking (NIL) -->
+                <div class="arch-card p-8 bg-feature-dark/70 text-feature-text border-white/10">
+                    <div class="w-12 h-12 text-aura-primary mb-4 flex items-center justify-center rounded-full bg-aura-primary/10">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.007 12.007 0 002.944 12 12.007 12.007 0 005.38 18.056 12.007 12.007 0 0012 21.056a12.007 12.007 0 006.62-2.944A12.007 12.007 0 0021.056 12a12.007 12.007 0 00-2.438-7.016z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-aura-primary">Layer 1: NIL Hooking</h3>
+                    <p class="text-feature-muted">
+                        Native Inline Load (NIL) deployment bypasses standard user-space injection vectors. It uses memory-based hooking at the kernel-level to manage game events directly, making it invisible to most anti-cheat scans.
+                    </p>
+                </div>
+
+                <!-- Pillar 2: Polymorphic Code Obfuscation -->
+                <div class="arch-card p-8 bg-feature-dark/70 text-feature-text border-white/10">
+                    <div class="w-12 h-12 text-aura-primary mb-4 flex items-center justify-center rounded-full bg-aura-primary/10">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-aura-primary">Layer 2: Polymorphic Core</h3>
+                    <p class="text-feature-muted">
+                        The client signature is never static. A dynamic code obfuscator scrambles the internal client logic on every launch, guaranteeing that byte-code comparison detection methods fail instantly.
+                    </p>
+                </div>
+
+                <!-- Pillar 3: Adaptive Detection Evasion -->
+                <div class="arch-card p-8 bg-feature-dark/70 text-feature-text border-white/10">
+                    <div class="w-12 h-12 text-aura-primary mb-4 flex items-center justify-center rounded-full bg-aura-primary/10">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-aura-primary">Layer 3: Adaptive Evasion</h3>
+                    <p class="text-feature-muted">
+                        A real-time process monitor intelligently suspends and shifts memory access when external integrity checks (e.g., Vanguard, Sentinel) are detected, ensuring clean read/write cycles.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Deep Dive Section -->
+    <section class="py-20 md:py-32 bg-bg-main">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-black text-center mb-16 text-text-dark">Technical Deep Dive</h2>
+
+            <!-- Block: Memory Management & Performance -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24 items-center">
+                <!-- Text Content -->
+                <div>
+                    <span class="text-sm font-semibold text-aura-primary uppercase tracking-widest mb-2 block">PERFORMANCE</span>
+                    <h3 class="text-3xl font-bold text-text-dark mb-4">Minimalist Memory Footprint</h3>
+                    <p class="text-lg text-text-muted mb-6">
+                        AURA is designed to be lean. We allocate only the absolute necessary memory pages and use low-level threading to ensure zero frame-rate impact. The entire client operates within a few megabytes of dedicated, encrypted virtual memory.
+                    </p>
+                    <ul class="space-y-3 text-text-dark">
+                        <li class="flex items-start space-x-2"><span class="text-aura-primary mt-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                        </span><span>**Sub-10ms Latency:** Optimized for high-frequency server ticks.</span></li>
+                        <li class="flex items-start space-x-2"><span class="text-aura-primary mt-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                        </span><span>**Asynchronous Processing:** Input handling is offloaded from the main render thread.</span></li>
+                    </ul>
+                </div>
+                <!-- Visual Placeholder -->
+                <div class="h-64 bg-bg-card p-6 rounded-2xl flex items-center justify-center shadow-lg border border-gray-200">
+                    <svg class="w-20 h-20 text-aura-primary opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2-3 .895-3 2 1.343 2 3 2m0-8V6m0 4v2m0 2v2"></path></svg>
+                </div>
+            </div>
+
+            <!-- Block: Dynamic HWID Cloaking -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Visual Placeholder (Reversed) -->
+                <div class="h-64 bg-bg-card p-6 rounded-2xl flex items-center justify-center shadow-lg border border-gray-200 order-last lg:order-first">
+                    <svg class="w-20 h-20 text-aura-primary opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2v2m4-4a2 2 0 012 2v2m-6-6a2 2 0 00-2-2h-5a2 2 0 00-2 2v2m-4-4a2 2 0 00-2 2v2m-4-4a2 2 0 00-2 2v2"></path></svg>
+                </div>
+
+                <!-- Text Content (Reversed) -->
+                <div>
+                    <span class="text-sm font-semibold text-aura-primary uppercase tracking-widest mb-2 block">ANONYMITY</span>
+                    <h3 class="text-3xl font-bold text-text-dark mb-4">Dynamic HWID Cloaking</h3>
+                    <p class="text-lg text-text-muted mb-6">
+                        Our proprietary v2.0 HWID Spoofing algorithm dynamically generates a new, unique hardware identifier profile on every authentication. This prevents linking of past bans to your current machine state, eliminating shadow-bans. 
+                    </p>
+                    <ul class="space-y-3 text-text-dark">
+                        <li class="flex items-start space-x-2"><span class="text-aura-primary mt-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </span><span>Virtual Machine (VM) and Sandbox detection bypass integrated.</span></li>
+                        <li class="flex items-start space-x-2"><span class="text-aura-primary mt-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </span><span>MAC Address and BIOS Serial Number randomization included.</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Security Callout -->
+            <div class="mt-20 max-w-4xl mx-auto">
+                <div class="security-callout">
+                    <p class="text-xl font-bold text-text-dark mb-2">Security Note on Anti-Cheats</p>
+                    <p class="text-text-muted">
+                        AURA's architecture is continually audited by our internal Red Team against the latest anti-cheat iterations (Sentinel, Vanguard, etc.). We issue mandatory patches immediately upon detection of new kernel-level scanning routines.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-gray-200 bg-bg-main">
+        <div class="max-w-7xl mx-auto px-6 text-center text-sm text-text-muted">
+            <p class="mb-4">© 2024 AURA Industries, LLC. All Rights Reserved. Engineered for Performance.</p>
+            <div class="space-x-4">
+                <a href="#" class="hover:text-aura-primary">Terms of Service</a>
+                <span class="text-gray-400">|</span>
+                <a href="#" class="hover:text-aura-primary">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

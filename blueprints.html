@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA | Blueprints</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Configuration and Custom CSS -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'aura-primary': '#8b5cf6', // Strong Purple Accent
+                        'bg-main': '#ffffff', // Clean White White Background
+                        'bg-card': '#f9fafb', // Light Gray Card Background
+                        'text-dark': '#1f2937', // Primary Dark Text
+                        'text-muted': '#6b7280', // Mid Gray Muted Text
+                        'feature-dark': '#1a202c', // Dark BG for features
+                        'feature-text': '#e5e7eb', // Light text for dark features
+                        'feature-muted': '#9ca3af', // Muted text for dark features
+                        'cta-dark-bg': '#0c1015', // Extremely dark background for the final CTA
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Using a custom, non-Tailwind font for the body -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo/Brand -->
+            <a href="index.html" class="text-2xl font-bold tracking-tight text-aura-primary">AURA<span class="text-text-dark font-light">.</span></a>
+            
+            <!-- Navigation Links -->
+            <nav class="flex items-center space-x-8">
+                <a href="architecture.html" class="hover:text-aura-primary transition">Architecture</a>
+                <a href="pricing.html" class="text-text-dark hover:text-aura-primary transition duration-300 font-medium">Pricing</a>
+                <a href="blueprints.html" class="text-aura-primary transition duration-300 font-medium">Blueprints</a>
+            </nav>
+
+            <!-- CTA Button -->
+            <a href="#" class="px-5 py-2 bg-aura-primary text-white text-sm font-semibold rounded-lg shadow-lg hover:bg-opacity-90 transition duration-300 transform hover:scale-105 hidden sm:block">
+                Start Trial
+            </a>
+        </div>
+    </header>
+
+    <!-- Blueprints Hero Section -->
+    <main class="py-20 bg-bg-main">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h1 class="text-5xl font-extrabold text-text-dark mb-4">AURA Project Blueprints</h1>
+            <p class="text-xl text-text-muted max-w-3xl mx-auto mb-16">See how global innovators deploy AURA to reshape their operational architecture and achieve market dominance.</p>
+            
+            <!-- Blueprint Cards Grid (Showcasing 3 projects) -->
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <!-- Blueprint 1: Quantum Bank -->
+                <div class="bg-bg-card p-6 rounded-2xl shadow-xl border border-gray-100 transform hover:shadow-2xl hover:scale-[1.02] transition duration-300">
+                    <div class="w-full h-40 bg-gray-900 rounded-lg mb-4 flex items-center justify-center relative overflow-hidden">
+                        <svg class="w-20 h-20 text-aura-primary opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9h-3a8.98 8.98 0 00-6 2.5m-2 4h3a8.98 8.98 0 006 2.5m-2 4a9 9 0 01-9-9"></path></svg>
+                        <p class="absolute bottom-2 right-3 text-xs text-gray-500 font-mono">FIN-001 / Low Latency Trading</p>
+                    </div>
+                    <h3 class="text-xl font-semibold text-text-dark mb-2">Hyperscale Financial Core</h3>
+                    <p class="text-text-muted text-sm mb-4">Migrated a top-tier investment bank to AURA's zero-latency infrastructure for trade execution.</p>
+                    <a href="#" class="text-aura-primary font-medium text-sm hover:underline">View Case Study &rarr;</a>
+                </div>
+
+                <!-- Blueprint 2: Nebula Comms -->
+                <div class="bg-bg-card p-6 rounded-2xl shadow-xl border border-gray-100 transform hover:shadow-2xl hover:scale-[1.02] transition duration-300">
+                    <div class="w-full h-40 bg-gray-900 rounded-lg mb-4 flex items-center justify-center relative overflow-hidden">
+                        <svg class="w-20 h-20 text-[#46cd71] opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14M12 5l7 7-7 7"></path></svg>
+                        <p class="absolute bottom-2 right-3 text-xs text-gray-500 font-mono">TEL-007 / 6G Network Optimization</p>
+                    </div>
+                    <h3 class="text-xl font-semibold text-text-dark mb-2">Massive IoT Telemetry</h3>
+                    <p class="text-text-muted text-sm mb-4">Optimized data ingestion and processing for 10 million simultaneous IoT device connections.</p>
+                    <a href="#" class="text-aura-primary font-medium text-sm hover:underline">View Case Study &rarr;</a>
+                </div>
+
+                <!-- Blueprint 3: Astra Gaming -->
+                <div class="bg-bg-card p-6 rounded-2xl shadow-xl border border-gray-100 transform hover:shadow-2xl hover:scale-[1.02] transition duration-300">
+                    <div class="w-full h-40 bg-gray-900 rounded-lg mb-4 flex items-center justify-center relative overflow-hidden">
+                        <svg class="w-20 h-20 text-red-400 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                        <p class="absolute bottom-2 right-3 text-xs text-gray-500 font-mono">GAM-003 / MMR System Stability</p>
+                    </div>
+                    <h3 class="text-xl font-semibold text-text-dark mb-2">High-Availability Matchmaking</h3>
+                    <p class="text-text-muted text-sm mb-4">Deployed AURA's self-healing clusters to maintain 99.999% uptime for competitive online gaming.</p>
+                    <a href="#" class="text-aura-primary font-medium text-sm hover:underline">View Case Study &rarr;</a>
+                </div>
+
+            </div>
+            
+            <div class="mt-20">
+                <p class="text-lg font-medium text-text-dark mb-6">Didn't find a blueprint that matches your needs?</p>
+                <a href="#" class="px-8 py-3 bg-aura-primary text-white text-lg font-semibold rounded-xl shadow-2xl shadow-aura-primary/50 hover:bg-opacity-90 transition duration-300 transform hover:scale-105">
+                    Schedule a Consultation
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-gray-200 bg-bg-main">
+        <div class="max-w-7xl mx-auto px-6 text-center text-sm text-text-muted">
+            <p>&copy; 2024 AURA. All rights reserved. Ethereal Performance Solutions.</p>
+            <div class="mt-4 space-x-4">
+                <a href="#" class="hover:text-aura-primary">Terms of Service</a>
+                <span class="text-gray-300">|</span>
+                <a href="#" class="hover:text-aura-primary">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
