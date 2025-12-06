@@ -6,7 +6,7 @@
     <title>AURA | Pricing Plans</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Tailwind Configuration and Custom CSSs --> 
+    <!-- Tailwind Configuration and Custom CSS -->
     <script>
         tailwind.config = {
             theme: {
@@ -27,8 +27,9 @@
                     },
                     // --- ANIMATION DEFINITIONS ---
                     animation: {
+                        // Keep float animation for the image/card effect, if needed later
                         'float': 'float 6s ease-in-out infinite',
-                        // New: Entry animation for pricing cards
+                        // Entry animation now generic for scroll reveal
                         'slide-in-up': 'slideInUp 0.8s ease-out forwards',
                     },
                     keyframes: {
@@ -36,9 +37,9 @@
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-15px)' },
                         },
-                        // New: Keyframes for sliding up and fading in
+                        // Keyframes for sliding up and fading in
                         slideInUp: {
-                            '0%': { opacity: 0, transform: 'translateY(50px)' },
+                            '0%': { opacity: 0, transform: 'translateY(30px)' },
                             '100%': { opacity: 1, transform: 'translateY(0)' },
                         }
                     }
@@ -46,7 +47,7 @@
             }
         }
     </script>
-    <!-- Custom Styles for Animation Delays and Initial State -->
+    <!-- Custom Styles for Initial State and Delays -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
@@ -54,38 +55,60 @@
             background-color: #ffffff;
             color: #1f2937;
         }
-        /* Custom delay classes */
-        .card-delay-0 { animation-delay: 0.2s; }
-        .card-delay-1 { animation-delay: 0.4s; }
-        .card-delay-2 { animation-delay: 0.6s; }
+        /* Elements to be animated are initially hidden */
+        .animate-on-scroll {
+            opacity: 0;
+        }
+        /* Custom delay classes, now used for staggered reveal */
+        .card-delay-0 { animation-delay: 0.1s; }
+        .card-delay-1 { animation-delay: 0.3s; }
+        .card-delay-2 { animation-delay: 0.5s; }
+        
+        /* Ensure the header is not hidden by the scroll-reveal logic */
+        header {
+            opacity: 1;
+        }
+
+                /* --- Footer styles (professional dark footer) --- */
+                .site-footer { background: linear-gradient(180deg,#0b0f14, #0f1720); color: #cbd5e1; }
+        .footer-top { padding: 3.5rem 1rem; }
+        .footer-brand { color: #fff; font-weight: 800; letter-spacing: -0.02em; }
+        .footer-small { color: #94a3b8; font-size: .95rem; }
+        .footer-link { color: #cbd5e1; transition: color .18s, transform .18s; }
+        .footer-link:hover { color: #fff; transform: translateY(-2px); }
+        .social-btn { display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:8px; background: rgba(255,255,255,0.03); transition: transform .12s, background .12s; }
+        .social-btn:hover { transform: translateY(-3px); background: linear-gradient(90deg, rgba(139,92,246,.18), rgba(99,102,241,.12)); }
+        .newsletter-input { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.04); color: #e6eef8; padding: .7rem .9rem; border-radius: .6rem; width:100%; }
+        .newsletter-cta { background: linear-gradient(90deg,#8b5cf6,#6d28d9); color:white; padding: .65rem 1rem; border-radius: .6rem; font-weight:600; }
+        .legal-row { border-top: 1px solid rgba(255,255,255,0.04); padding: 1rem 0; color: #94a3b8; font-size: .9rem; }
+
+        @media (max-width: 768px) {
+            .footer-top { padding: 2rem 1rem; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Header Navigation -->
-    <header class="sticky top-0 z-50 bg-white shadow-md">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <!-- Logo/Brand -->
-            <a href="index.html" class="text-2xl font-bold tracking-tight text-aura-primary">AURA<span class="text-text-dark font-light">.</span></a>
+    <!-- Navbar (clean - no reveal classes / data-delay) -->
+    <nav class="fixed w-full z-50 glass-light transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="index.html" class="text-3xl font-black tracking-tighter text-aura-primary">AURA.</a>
+            <div class="hidden md:flex space-x-8 font-medium text-sm text-text-muted">
+                <a href="architecture.html" class="hover:text-aura-primary transition">Architecture</a>
+                <a href="pricing.html" class="text-text-dark hover:text-aura-primary transition duration-300 font-medium">Pricing</a>
+                <a href="blueprints.html" class="hover:text-aura-primary transition">Blueprints</a>
+            </div>
             
-            <!-- Navigation Links -->
-            <nav class="flex items-center space-x-8">
-                <a href="index.html" class="text-text-dark hover:text-aura-primary transition duration-300 font-medium">Home</a>
-                <a href="pricing.html" class="text-aura-primary transition duration-300 font-medium">Pricing</a>
-                <a href="blueprints.html" class="text-text-dark hover:text-aura-primary transition duration-300 font-medium">Blueprints</a>
-            </nav>
-
-            <!-- CTA Button -->
-            <a href="#" class="px-5 py-2 bg-aura-primary text-white text-sm font-semibold rounded-lg shadow-lg hover:bg-opacity-90 transition duration-300 transform hover:scale-105 hidden sm:block">
-                Start Trial
+            <a href="pricing.html" class="bg-aura-primary text-white px-6 py-2.5 rounded-full font-semibold shadow-lg shadow-purple-500/50 hover:shadow-xl hover:scale-105 transition-all duration-300">
+                Get Access
             </a>
         </div>
-    </header>
+    </nav>
 
-    <!-- Pricing Section -->
+    <!-- Pricing Section - Main Content block uses animation class -->
     <main class="py-20 bg-bg-main">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
+            <div class="text-center mb-16 animate-on-scroll card-delay-0">
                 <h1 class="text-5xl font-extrabold text-text-dark mb-4">Transparent Ethereal Pricing</h1>
                 <p class="text-xl text-text-muted max-w-3xl mx-auto">Choose the solution that aligns with your velocity goals, from solo projects to global enterprise deployments.</p>
                 <div class="mt-8 inline-flex p-1 bg-bg-card rounded-full border border-gray-200 shadow-inner">
@@ -97,8 +120,8 @@
             <!-- Pricing Cards Grid -->
             <div class="grid md:grid-cols-3 gap-8 items-stretch">
 
-                <!-- Plan 1: Genesis - Hidden initially, slides in first -->
-                <div class="bg-bg-card p-8 rounded-2xl shadow-xl border border-gray-100 flex flex-col opacity-0 animate-slide-in-up card-delay-0">
+                <!-- Plan 1: Genesis - Uses individual animation class and initial delay -->
+                <div class="bg-bg-card p-8 rounded-2xl shadow-xl border border-gray-100 flex flex-col animate-on-scroll card-delay-0">
                     <h2 class="text-3xl font-bold text-text-dark mb-2">Genesis</h2>
                     <p class="text-text-muted mb-6">Start your journey into optimized performance.</p>
                     <div class="text-6xl font-extrabold text-text-dark mb-1">
@@ -134,8 +157,8 @@
                     </ul>
                 </div>
 
-                <!-- Plan 2: Velocity (MOST POPULAR) - Hidden initially, slides in second -->
-                <div class="bg-feature-dark p-8 rounded-2xl shadow-2xl border-4 border-aura-primary flex flex-col relative transform scale-105 opacity-0 animate-slide-in-up card-delay-1">
+                <!-- Plan 2: Velocity (MOST POPULAR) - Uses individual animation class and mid delay -->
+                <div class="bg-feature-dark p-8 rounded-2xl shadow-2xl border-4 border-aura-primary flex flex-col relative transform scale-105 animate-on-scroll card-delay-1">
                     <div class="absolute top-0 right-0 -mt-4 -mr-4 px-4 py-1 bg-aura-primary text-white text-xs font-bold rounded-full uppercase tracking-wider shadow-lg">
                         Most Popular
                     </div>
@@ -174,8 +197,8 @@
                     </ul>
                 </div>
 
-                <!-- Plan 3: Nexus - Hidden initially, slides in last -->
-                <div class="bg-bg-card p-8 rounded-2xl shadow-xl border border-gray-100 flex flex-col opacity-0 animate-slide-in-up card-delay-2">
+                <!-- Plan 3: Nexus - Uses individual animation class and last delay -->
+                <div class="bg-bg-card p-8 rounded-2xl shadow-xl border border-gray-100 flex flex-col animate-on-scroll card-delay-2">
                     <h2 class="text-3xl font-bold text-text-dark mb-2">Nexus</h2>
                     <p class="text-text-muted mb-6">Enterprise-grade performance for limitless scale.</p>
                     <div class="text-6xl font-extrabold text-text-dark mb-1">
@@ -193,7 +216,7 @@
                             <span>Unlimited requests/sec</span>
                         </li>
                         <li class="flex items-start">
-                            <svg class="w-5 h-5 mr-3 text-aura-primary flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <svg class="w-5 h-5 mr-3 text-aura-primary flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></path></svg>
                             <span>Full suite of deep-dive tools</span>
                         </li>
                         <li class="flex items-start">
@@ -214,17 +237,124 @@
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="py-12 border-t border-gray-200 bg-bg-main">
-        <div class="max-w-7xl mx-auto px-6 text-center text-sm text-text-muted">
-            <p>&copy; 2024 AURA. All rights reserved. Ethereal Performance Solutions.</p>
-            <div class="mt-4 space-x-4">
-                <a href="#" class="hover:text-aura-primary">Terms of Service</a>
-                <span class="text-gray-300">|</span>
-                <a href="#" class="hover:text-aura-primary">Privacy Policy</a>
+<!-- ==========================
+         NEW PROFESSIONAL FOOTER
+         ========================== -->
+         <footer class="site-footer mt-24">
+            <div class="footer-top max-w-7xl mx-auto px-6">
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                <!-- Brand / Description -->
+                <div class="md:col-span-4">
+                  <a href="index.html" class="inline-block footer-brand text-2xl mb-3">AURA<span class="text-aura-primary">.</span></a>
+                  <p class="footer-small max-w-sm mb-4">
+                    Ethereal performance for builders and creators. Lightweight, secure, and built for speed — designed to scale with your ambitions.
+                  </p>
+      
+                  <div class="flex items-center space-x-3 mt-3">
+                    <!-- Social icons -->
+                    <a class="social-btn" href="#" aria-label="Twitter">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6.5c-.6.3-1.2.5-1.9.6.7-.4 1.2-1 1.4-1.7-.7.5-1.5.8-2.3 1-1.3-1.4-3.6-1.2-4.9.4-1.1 1.4-.8 3.2.5 4.1-.6 0-1.2-.2-1.6-.5 0 1.6 1.1 3 2.6 3.3-.5.1-1 .2-1.6.1.5 1.6 2 2.6 3.7 2.6-1.4 1-3.1 1.5-4.8 1.3 1.5 1 3.3 1.5 5.2 1.5 6.3 0 9.8-5.5 9.8-10.3v-.47c.7-.5 1.3-1.2 1.8-1.9-.6.3-1.3.5-2 .6z" fill="currentColor"/></svg>
+                    </a>
+                    <a class="social-btn" href="#" aria-label="GitHub">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="https://github.com/dropshotz29714/"><path d="M12 2c-5.5 0-10 4.5-10 10 0 4.4 2.9 8.1 6.9 9.4.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.4-1-1-1.3-1-1.3-.8-.6.1-.6.1-.6.9.1 1.4.9 1.4.9.8 1.4 2.1 1 2.6.8.1-.6.3-1 .6-1.3-2.2-.2-4.5-1.1-4.5-4.9 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1 .8-.2 1.7-.3 2.6-.3s1.8.1 2.6.3c2-.1 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.8-2.3 4.7-4.5 4.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.7.5 4-1.3 6.9-5 6.9-9.4 0-5.5-4.5-10-10-10z" fill="currentColor"/></svg>
+                    </a>
+                    <a class="social-btn" href="#" aria-label="Discord">
+                      <svg width="18" height="18" viewBox="0 0 71 55" xmlns="http://www.w3.org/2000/svg"><path d="M60.5 4.5C54.9 2 49.1 1 43 1c0 0-1.7 3.2-3 6.4-6.9-.7-13.8-.7-20.6 0C15.5 4.2 13.8 1 13.8 1 7.7 1 1.9 2  -4.7 4.5c-.6 9.4 0 18.8 4.9 27.2 3.8 6.6 9.6 11.1 16.1 14.1 6.6 3 13.1 4.3 19.8 4.3 6.7 0 13.2-1.3 19.8-4.3 6.6-3 12.4-7.5 16.1-14.1 4.9-8.4 5.5-17.8 4.9-27.2z" fill="currentColor"/></svg>
+                    </a>
+                  </div>
+                </div>
+      
+                <!-- Product links -->
+                <div class="md:col-span-2">
+                  <h4 class="text-white font-semibold mb-3">Product</h4>
+                  <ul class="space-y-2">
+                    <li><a class="footer-link" href="#">Features</a></li>
+                    <li><a class="footer-link" href="pricing.html">Pricing</a></li>
+                    <li><a class="footer-link" href="blueprints.html">Blueprints</a></li>
+                    <li><a class="footer-link" href="architecture.html">Tech</a></li>
+                  </ul>
+                </div>
+      
+                <!-- Resources -->
+                <div class="md:col-span-2">
+                  <h4 class="text-white font-semibold mb-3">Resources</h4>
+                  <ul class="space-y-2">
+                    <li><a class="footer-link" href="#">Docs</a></li>
+                    <li><a class="footer-link" href="#">Community</a></li>
+                    <li><a class="footer-link" href="#">Support</a></li>
+                    <li><a class="footer-link" href="#">Security</a></li>
+                  </ul>
+                </div>
+      
+                <!-- Newsletter / Contact -->
+                <div class="md:col-span-4">
+                  <h4 class="text-white font-semibold mb-3">Stay in the loop</h4>
+                  <p class="footer-small mb-3 max-w-md">Get product updates, release notes and exclusive access to beta features — delivered monthly.</p>
+      
+                  <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center max-w-md">
+                    <input aria-label="Email address" type="email" name="email" placeholder="you@company.com" class="newsletter-input" required>
+                    <button type="submit" class="newsletter-cta">Subscribe</button>
+                  </form>
+      
+                  <p id="newsletter-msg" class="footer-small mt-3" style="display:none;"></p>
+                </div>
+              </div>
             </div>
-        </div>
-    </footer>
+      
+            <!-- Legal / small print -->
+            <div class="legal-row">
+              <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                  <span class="footer-small">© <span id="year"></span> AURA Industries, LLC</span>
+                  <span class="text-gray-500">•</span>
+                  <a class="footer-link" href="#">Terms</a>
+                  <span class="text-gray-500">|</span>
+                  <a class="footer-link" href="#">Privacy</a>
+                </div>
+      
+                <div class="flex items-center gap-3">
+                  <span class="footer-small mr-2 hidden sm:inline">We accept</span>
+                  <!-- payment badges (placeholder) -->
+                  <div class="flex items-center gap-2">
+                    <div class="h-6 w-10 rounded-sm bg-white/8 flex items-center justify-center text-xs text-white/80">VISA</div>
+                    <div class="h-6 w-10 rounded-sm bg-white/8 flex items-center justify-center text-xs text-white/80">MC</div>
+                    <div class="h-6 w-10 rounded-sm bg-white/8 flex items-center justify-center text-xs text-white/80">AMEX</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </footer>
 
+    <!-- JavaScript for Scroll Reveal Animation -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Select all elements marked for animation
+            const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
+
+            // Set up the Intersection Observer
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // When element enters viewport, start the animation
+                        entry.target.classList.remove('opacity-0');
+                        entry.target.classList.add('animate-slide-in-up');
+                        // Stop observing once animated
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                // Root is the viewport
+                root: null,
+                // Trigger when 10% of the item is visible
+                threshold: 0.1 
+            });
+
+            // Initially set all elements to be observed and invisible
+            elementsToAnimate.forEach(element => {
+                element.classList.add('opacity-0');
+                observer.observe(element);
+            });
+        });
+    </script>
 </body>
 </html>
